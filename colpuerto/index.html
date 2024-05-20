@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IECOLPUERTO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+			
+        }
+
+        .menu-barra { display: flex; justify-content: space-between; align-items: center; background-color: white; color: #000; padding: 10px; border-bottom: 2px solid blue; position: sticky; top: 0; z-index: 1000; }
+
+.logo { max-width: 75px; height: auto; }
+
+.menu-item {
+  display: inline-block;
+  position: relative; /* Add this line */
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu-item a { text-decoration: none; color: blue; }
+
+.sub-menu {
+  display: none;
+  position: absolute;
+  top: 40px; /* Change this value as needed */
+  left: 0;
+  background-color: #555;
+  padding: 10px;
+  border-top: 1px solid black;
+  z-index: 1002;
+}
+
+.menu-item:hover .sub-menu { display: block; }
+
+.sub-menu-item { display: block; margin: 5px 0; color: #fff; text-decoration: none; }
+
+.boton-login { display: inline-block; padding: 10px 15px; background-color: #007bff; color: #fff; text-decoration: none; border: none; cursor: pointer; margin-right: 22px; }
+
+.buscador-icono { display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-right: 15px; color: black; }
+
+        .buscador-icono i {
+            margin-right: 10px;
+			
+        }
+		.buscador-icono i#icono-menu {
+             display: none;
+        }
+
+        .buscador {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1002;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .buscador-activo {
+            display: block;
+        }
+
+        .input-busqueda {
+            border: 2px solid #fff;
+            width: 100%;
+            padding: 5px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .input-busqueda:focus {
+            border-color: blue;
+            outline: none;
+        }
+		 .resultado-item {
+            display: block;
+            margin-top: 10px; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+        }
+		.resultado-item a {
+            text-decoration: none;
+            color: black; 
+            text-align: left;
+            margin-left: 8px;
+        }
+
+        .menu-responsive {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            color: black;
+            padding-top: 60px;
+            transition: left 0.3s;
+            z-index: 1002;
+        }
+
+        .menu-abrir {
+            left: 0;
+        }
+
+        .menu-abrir .menu-item {
+            display: block;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .menu-responsive .menu-item {
+		    border: 1px solid #ccc;
+            margin: 15px 0;
+			padding: 5px 10px;
+			text-align: center;
+        }
+
+        .menu-responsive .sub-menu {
+            position: static;
+            background-color: transparent;
+            padding: 0;
+            border-top: none; 
+        }
+
+        .menu-responsive .sub-menu-item {
+            margin: 5px 20px;
+            border-top: 1px solid black;
+            padding-top: 5px;
+        }
+
+        @media (max-width: 722px) {
+            .menu-item {
+             display: none;
+        }
+			.buscador-icono i#icono-menu {
+             display: block;
+             margin-right: 10px;
+			 width: 30px;
+        }
+            .buscador-icono i#icono-busqueda {
+             margin-left: 10px;
+        }
+            }
+        }
+		@media (max-width: 722px) {
+            .buscador-icono i#icono-menu {
+             display: block;
+        }
+            }
+        {
+             margin: 0;
+             padding: 0;
+        }
+		
+         .title {
+             text-align: center;
+             padding: 20px;
+             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+	   h1 {
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-top: 30px;
+        }
+		.vision-title {
+        margin-top: -7px;
+    }
+
+        p {
+            text-align: center;
+            margin-top: -10px;
+        }
+		 p.vision {
+        margin-top: -100px; 
+    }
+	     .container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.image {
+  max-width: 100%; 
+  height: auto; }
+
+
+@media (max-width: 800px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+.image-container {
+  background-color: #007bff;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.image-container .image-wrapper {
+  margin: 0 10px;
+   text-align: center;
+}
+
+.image-wrapper .image {
+  width: 40%;
+  height: auto;
+}
+
+.image-description {
+  margin-top: 10px;
+  color: #333;
+}
+
+}
+@media only screen and (max-width: 768px) {
+    .logo img {
+        max-width: 50px;
+    }
+
+    .menu-item {
+        display: none;
+    }
+
+    .menu-item:last-child {
+        display: block;
+    }
+
+    .menu-responsive {
+        left: -100%;
+    }
+
+    .menu-abrir {
+        left: 0;
+    }
+
+    .buscador-icono {
+        margin-right: 5px;
+    }
+
+    .buscador-icono i#icono-menu {
+        display: block;
+    }
+
+    .buscador-icono i#icono-busqueda {
+        margin-left: 0;
+    }
+
+    .title {
+        padding: 10px;
+    }
+
+    .vision-container,
+    .vision-text {
+        margin-top: 20px;
+    }
+
+    .image-wrapper .image {
+        width: 100%;
+    }
+
+    .image-description {
+        text-align: center;
+    }
+
+    .footer {
+        padding: 10px 0;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-wrapper {
+        margin: 10px 0;
+        text-align: center; /* Centra la descripción */
+    }
+
+    .image-wrapper .image {
+        width: 30%; /* Tamaño moderado para las imágenes */
+        height: auto;
+    }
+
+    .image-description {
+        text-align: center;
+        margin-top: 5px;
+    }
+}
+
+.mision-vision-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.mision,
+.vision {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.texto-container {
+    text-align: center; /* Centra el texto dentro de los contenedores */
+}
+
+@media only screen and (min-width: 768px) {
+    .mision-vision-container {
+        align-items: flex-start;
+    }
+
+    .mision,
+    .vision {
+        width: 50%;
+        text-align: left;
+    }
+}
+
+
+
+.texto-container {
+    width: 100%; /* Ancho completo */
+    display: flex;
+    flex-direction: column;
+}
+
+.texto {
+    width: 100%; /* Ancho completo */
+}
+
+@media only screen and (min-width: 768px) {
+    .texto-container {
+        width: 48%; /* Ancho del 48% para cada columna */
+    }
+}
+
+.title {
+    text-align: left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 30px;
+    margin-left: 30px; /* Ajuste del margen izquierdo */
+}
+
+.vision-title {
+    margin-top: -7px;
+    margin-left: 80px; /* Ajuste del margen izquierdo */
+}
+
+.mision-title {
+    margin-top: -7px;
+    margin-left: 80px; /* Ajuste del margen izquierdo */
+}
+
+
+.texto {
+    text-align: center;
+    margin-top: -10px;
+}
+
+.vision-text {
+    margin-top: -20px;
+}
+
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  color: black;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.carousel-btn-prev {
+  left: 10px;
+}
+
+.carousel-btn-next {
+  right: 10px;
+}
+    /* Add this CSS */
+    .carousel-container {
+        position: relative;
+        max-width: 100%;
+        overflow: hidden;
+        margin-top: -320px; /* Move the carousel up */
+    }
+
+    .carousel-slide {
+        display: flex;
+        transition: transform 0.5s ease;
+        height: 200px; /* Set the height of the carousel */
+    }
+
+    .carousel-slide img {
+        height: 100%; /* Make sure the images fill the carousel height */
+        object-fit: cover; /* Scale the image to cover the entire element */
+    }
+
+   
+  
+  }
+	
+			.footer {
+            border-top: 1px solid blue;
+            text-align: center;
+            padding: 20px 0;
+            background-color: white;
+            color: black;
+            font-size: 14px;
+        }
+		.fot {
+		margin-top: 10px;
+		}
+		
+		.image-container1 {
+  width: 500px; /* Ancho deseado para la imagen */
+  height: auto; /* Altura automática para mantener la proporción */
+  overflow: hidden; /* Evita que la imagen se desborde del contenedor */
+  margin: 0 auto 0 40px; /* Margen izquierdo de 50px, centrado verticalmente */
+}
+
+
+.img-ban {
+    width: 500px; /* Ajusta el ancho de la imagen según sea necesario */
+    height: auto; /* Mantiene la proporción de aspecto */
+    margin-left: 600px; /* Ajusta el margen derecho según sea necesario */
+    margin-top: 100px; /* Ajusta el margen superior según sea necesario */
+    position: absolute; /* Posición absoluta */
+    z-index: 999; /* Z-index alto para que esté por encima del contenido */
+}
+@media only screen and (max-width: 768px) {
+  .img-ban {
+    width: 70%; /* Tamaño moderado */
+    max-width: 300px; /* Tamaño máximo */
+    margin-left: auto; /* Centra horizontalmente */
+    margin-right: auto; /* Centra horizontalmente */
+    margin-top: 20px; /* Ajusta el margen superior */
+    position: relative; /* Cambia la posición a relativa */
+    z-index: 1; /* Asegura que esté por encima del contenido */
+	}
+
+.bnv {
+  position: fixed;
+  z-index: 1001; /* Add z-index value */
+}
+
+
+    </style>
+</head>
+<body>
+   
+    <div class="menu-barra">
+        <a href="#" class="logo"><img src="colpuerto/img/escudocol.png" alt="Logo"></a>
+        <div class="menu-item">
+            <a href="index.html">INICIO</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">OTROS </a>
+            <div class="sub-menu">
+                <a href="https://www2.icfesinteractivo.gov.co/prisma-web/pages/administracion/autenticacion/autenticacionIcfes.jsf?faces-redirect=true#No-back-button" class="sub-menu-item" style="color: white">ICFES Interactivo</a>
+                <a href="https://www.puntajenacional.co/landing" class="sub-menu-item" style="color: white">Puntaje Nacional</a>
+                <a href="#" class="sub-menu-item" style="color: white">Organigrama</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <a href="https://oferta.senasofiaplus.edu.co/sofia-oferta/">SENA</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">ACADEMICO</a>
+            <div class="sub-menu">
+                <a href="pei.html" class="sub-menu-item" style="color: white">PEI</a>
+                <a href="mdc.html" class="sub-menu-item" style="color: white">Manual de convivencia</a>
+                <a href="siee.html" class="sub-menu-item" style="color: white">SIEE</a>
+            </div>
+			
+        </div>
+        <div class="buscador-icono">
+    <i class="fas fa-bars" id="icono-menu"></i>
+    <i class="fas fa-search" id="icono-busqueda"></i>
+    <div class="buscador" id="buscador">
+        <input type="text" class="input-busqueda" placeholder="Buscar" id="input-busqueda">
+        <div class="resultados-busqueda" id="resultados-busqueda">
+        </div>
+		</div>
+		</div>
+        <a href="https://www.webcolegios.com/puertosantander/" class="boton-login">Acceso</a>
+    </div>
+	 <div class="menu-responsive" id="menu-responsive">
+        <div class="menu-item">
+            <a href="index.html">INICIO</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">OTROS</a>
+            <div class="sub-menu">
+                <a href="https://www2.icfesinteractivo.gov.co/prisma-web/pages/administracion/autenticacion/autenticacionIcfes.jsf?faces-redirect=true#No-back-button" class="sub-menu-item" style="color: black">ICFES Interactivo</a>
+                <a href="https://www.puntajenacional.co/landing" class="sub-menu-item" style="color: black">Puntaje Nacional</a>
+                <a href="#" class="sub-menu-item" style="color: black">Organigrama</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <a href="https://oferta.senasofiaplus.edu.co/sofia-oferta/">SENA</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">ACADEMICO</a>
+            <div class="sub-menu">
+                <a href="pei.html" class="sub-menu-item" style="color: black">PEI</a>
+                <a href="mdc.html" class="sub-menu-item" style="color: black">Manual de convivencia</a>
+                <a href="siee.html" class="sub-menu-item" style="color: black">SIEE</a>
+            </div>
+        </div>
+    </div>
+	<a class="bnv" href="mision,vision.html">
+  <button style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 10px; margin-left: 220px; margin-top: 20px; Z-index: 1;">Nuestra Misión y Visión</button>
+</a>
+
+<p>
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fweb.facebook.com%2Fphoto%2F%3Ffbid%3D110837965292564%26set%3Da.110837981959229&show_text=true&width=500" width="500" height="564" style="border:none;overflow:hidden; margin-left: 700px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+</p>
+<div style="position: relative; top: -500px; margin-left: 70px; Z-index: 1;">
+  <iframe width="560" height="390" src="https://www.youtube.com/embed/5KLLe1gOLtQ?si=ZMQr9D62oHjxMvrZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+
+
+<div class="carousel-container">
+  <div class="carousel-slide">
+    <img src="colpuerto/img/img1.jpg" alt="Imagen 1">
+    <img src="colpuerto/img/img2.jpg" alt="Imagen 2">
+    <img src="colpuerto/img/img3.jpg" alt="Imagen 3">
+	<img src="colpuerto/img/img4.jpg" alt="Imagen 4">
+	<img src="colpuerto/img/img5.jpg" alt="Imagen 5">
+	<img src="colpuerto/img/img6.jpg" alt="Imagen 6">
+	<img src="colpuerto/img/img7.jpg" alt="Imagen 7">
+	<img src="colpuerto/img/img8.jpg" alt="Imagen 8">
+	<img src="colpuerto/img/img9.jpeg" alt="Imagen 9">
+	<img src="colpuerto/img/img10.jpeg" alt="Imagen 10">
+	<img src="colpuerto/img/img11.jpeg" alt="Imagen 11">
+	<img src="colpuerto/img/img12.jpeg" alt="Imagen 12">
+	<img src="colpuerto/img/escudocol.png" alt="Imagen 13">
+    <!-- Añade más imágenes según sea necesario -->
+  </div>
+  <button class="carousel-btn carousel-btn-prev">&#10094;</button>
+  <button class="carousel-btn carousel-btn-next">&#10095;</button>
+</div>
+
+</div>
+<div class="image-container">
+  <div class="image-wrapper">
+    <img src="colpuerto/img/salo.png" alt="Image 1" class="image">
+    <p class="image-description">Contamos con 26 profesores/as</p>
+  </div>
+  <div class="image-wrapper">
+    <img src="colpuerto/img/ba.png" alt="Image 2" class="image">
+    <p class="image-description">Contamos con 2 sanitarios</p>
+  </div>
+  <div class="image-wrapper">
+    <img src="colpuerto/img/cam.png" alt="Image 3" class="image">
+    <p class="image-description">Contamos con cancha y coliseo</p>
+  </div>
+  <div class="image-wrapper">
+    <img src="colpuerto/img/col.png" alt="Image 4" class="image">
+    <p class="image-description">Contamos con 22 salones educativos</p>
+  </div>
+  <div class="image-wrapper">
+    <img src="colpuerto/img/lib.png" alt="Image 5" class="image">
+    <p class="image-description">Contamos con una biblioteca</p>
+  </div>
+</div>
+	<div class="footer">
+        <p class="fot">Copyright © 2024 Colegio Puerto Santander</p>
+    </div>
+	
+    <script>
+     const iconoMenu = document.getElementById('icono-menu');
+        const menuResponsive = document.getElementById('menu-responsive');
+
+        iconoMenu.addEventListener('click', () => {
+            menuResponsive.classList.toggle('menu-abrir');
+        });
+
+        const iconoBusqueda = document.getElementById('icono-busqueda');
+        const buscador = document.getElementById('buscador');
+
+        iconoBusqueda.addEventListener('click', () => {
+            buscador.classList.toggle('buscador-activo');
+            menuResponsive.classList.remove('menu-abrir');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!buscador.contains(event.target) && !iconoBusqueda.contains(event.target)) {
+                buscador.classList.remove('buscador-activo');
+            }
+            if (!menuResponsive.contains(event.target) && !iconoMenu.contains(event.target)) {
+                menuResponsive.classList.remove('menu-abrir');
+            }
+        });
+		const resultadosBusqueda = document.getElementById('resultados-busqueda');
+        const inputBusqueda = document.querySelector('.input-busqueda'); 
+
+        const enlacesResultados = [
+            { texto: 'PEI', enlace: 'pei.html' },
+            { texto: 'Manual de convivencia', enlace: 'mdc.html' },
+            
+        ];
+
+        inputBusqueda.addEventListener('input', function () {
+            const searchTerm = inputBusqueda.value.toLowerCase();
+            resultadosBusqueda.innerHTML = '';
+
+            if (searchTerm.trim() !== '') {
+                enlacesResultados.forEach((resultado) => {
+                    const contenido = resultado.texto.toLowerCase();
+                    if (contenido.includes(searchTerm)) {
+                        const enlace = document.createElement('a');
+                        enlace.href = resultado.enlace;
+                        enlace.textContent = resultado.texto;
+                        const item = document.createElement('div');
+                        item.classList.add('resultado-item');
+                        item.appendChild(enlace);
+                        resultadosBusqueda.appendChild(item);
+                    }
+                });
+
+                if (resultadosBusqueda.children.length > 0) {
+                    resultadosBusqueda.style.display = 'block';
+                } else {
+                    resultadosBusqueda.style.display = 'none';
+                }
+            } else {
+                resultadosBusqueda.style.display = 'none';
+            }
+        });
+		inputBusqueda.addEventListener('input', function () {
+        const searchTerm = inputBusqueda.value.toLowerCase();
+        resultadosBusqueda.innerHTML = '';
+
+        if (searchTerm.trim() !== '') {
+            enlacesResultados.forEach((resultado) => {
+                const contenido = resultado.texto.toLowerCase();
+                if (contenido.includes(searchTerm)) {
+                    const enlace = document.createElement('a');
+                    enlace.href = resultado.enlace;
+                    enlace.textContent = resultado.texto;
+                    const item = document.createElement('div');
+                    item.classList.add('resultado-item');
+                    item.appendChild(enlace);
+                    resultadosBusqueda.appendChild(item);
+                }
+            });
+
+            if (resultadosBusqueda.children.length > 0) {
+                resultadosBusqueda.style.display = 'block'; 
+            } else {
+                resultadosBusqueda.style.display = 'none';
+            }
+        } else {
+            resultadosBusqueda.style.display = 'none';
+        }
+    });
+
+    inputBusqueda.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const primerResultado = document.querySelector('.resultado-item a');
+            if (primerResultado) {
+                window.location.href = primerResultado.getAttribute('href');
+            }
+        }
+     });
+	const carouselSlide = document.querySelector('.carousel-slide');
+const carouselImages = document.querySelectorAll('.carousel-slide img');
+
+// Botones
+const prevBtn = document.querySelector('.carousel-btn-prev');
+const nextBtn = document.querySelector('.carousel-btn-next');
+
+// Contador
+let counter = 1;
+const size = carouselImages[0].clientWidth;
+
+carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+
+// Botón de desplazamiento a la izquierda
+prevBtn.addEventListener('click', () => {
+  if (counter <= 0) {
+    counter = carouselImages.length - 1;
+    carouselSlide.style.transition = 'none';
+    carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+  } else {
+    counter--;
+    carouselSlide.style.transition = 'transform 0.5s ease-in-out';
+    carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+  }
+});
+
+// Botón de desplazamiento a la derecha
+nextBtn.addEventListener('click', () => {
+  if (counter >= carouselImages.length - 1) {
+    counter = 0;
+    carouselSlide.style.transition = 'none';
+    carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+  } else {
+    counter++;
+    carouselSlide.style.transition = 'transform 0.5s ease-in-out';
+    carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+  }
+});
+
+// Desplazamiento automático
+setInterval(() => {
+  if (counter >= carouselImages.length - 1) {
+    counter = 0;
+    carouselSlide.style.transition = 'none';
+    carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+  } else {
+    counter++;
+    carouselSlide.style.transition = 'transform 0.5s ease-in-out';
+    carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+  }
+}, 3000);
+
+
+    </script>
+</body>
+</html>

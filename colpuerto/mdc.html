@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COLPUERTO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+			background-color: white;
+        }
+
+        .menu-barra {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            color: #000;
+            padding: 10px;
+            border-bottom: 2px solid blue;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+		    margin-bottom: 0;
+        }
+		 div[style="height: 1500px; background-color: #f4f4f4; padding-top: 50px;"] {
+            margin-top: 0;
+        }
+
+        .logo img {
+            max-width: 75px;
+            height: auto;
+        }
+
+        .menu-item {
+            display: inline-block;
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .menu-item a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #555;
+            padding: 10px;
+            border-top: 1px solid black; 
+        }
+
+        .menu-item:hover .sub-menu {
+            display: block;
+        }
+
+        .sub-menu-item {
+            display: block;
+            margin: 5px 0;
+            color: #fff; 
+            text-decoration: none;
+        }
+
+        .boton-login {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+			margin-right: 22px;
+        }
+
+        .buscador-icono {
+		    display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 15px;
+            color: black;
+        }
+
+        .buscador-icono i {
+            margin-right: 10px;
+			
+        }
+		.buscador-icono i#icono-menu {
+             display: none;
+        }
+
+        .buscador {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .buscador-activo {
+            display: block;
+        }
+
+        .input-busqueda {
+            border: 2px solid #fff;
+            width: 100%;
+            padding: 5px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .input-busqueda:focus {
+            border-color: blue;
+            outline: none;
+        }
+		 .resultado-item {
+            display: block;
+            margin-top: 10px; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+        }
+		.resultado-item a {
+            text-decoration: none;
+            color: black; 
+            text-align: left;
+            margin-left: 8px;
+        }
+
+        .menu-responsive {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            color: black;
+            padding-top: 60px;
+            transition: left 0.3s;
+            z-index: 1001;
+        }
+		.menu-responsive .menu-item {
+		    border: 1px solid #ccc;
+            margin: 15px 0;
+			padding: 5px 10px;
+			text-align: center;
+        }
+
+        .menu-abrir {
+            left: 0;
+        }
+
+        .menu-abrir .menu-item {
+            display: block;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .menu-responsive .sub-menu {
+            position: static;
+            background-color: transparent;
+            padding: 0;
+            border-top: none; 
+        }
+
+        .menu-responsive .sub-menu-item {
+            margin: 5px 20px;
+            border-top: 1px solid black;
+            padding-top: 5px;
+        }
+
+        @media (max-width: 722px) {
+            .menu-item {
+             display: none;
+        }
+			.buscador-icono i#icono-menu {
+             display: block;
+             margin-right: 10px;
+			 width: 30px;
+        }
+            .buscador-icono i#icono-busqueda {
+             margin-left: 10px;
+        }
+            }
+        }
+		@media (max-width: 722px) {
+            .buscador-icono i#icono-menu {
+             display: block;
+        }
+            }
+        {
+             margin: 0;
+             padding: 0;
+        }
+
+         .title {
+             text-align: center;
+             padding: 20px;
+             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+		
+             img {
+              max-width: 100%;
+              height: auto;
+              display: block;
+              margin: 0 auto;
+        }
+
+         .pdf-container {
+            max-width: 100%;
+            height: auto;
+            overflow: auto;
+			margin-top: -300px;
+
+         .pdf-viewer {
+         margin: auto;
+         display: block;
+         width: 100%; 
+         max-width: 900px;
+         height: 700px;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         margin-bottom: 20px;
+		 border-radius: 20px;
+        }
+		.footer {
+            border-top: 1px solid blue;
+            text-align: center;
+            padding: 20px 0;
+            background-color: white;
+            color: black;
+            font-size: 14px;
+        } 
+    </style>
+</head>
+<body>
+    <div class="menu-barra">
+        <a href="#" class="logo"><img src="colpuerto/img/escudocol.png" alt="Logo"></a>
+        <div class="menu-item">
+            <a href="index.html">INICIO</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">OTROS </a>
+            <div class="sub-menu">
+                <a href="https://www2.icfesinteractivo.gov.co/prisma-web/pages/administracion/autenticacion/autenticacionIcfes.jsf?faces-redirect=true#No-back-button" class="sub-menu-item" style="color: white">ICFES Interactivo</a>
+                <a href="https://www.puntajenacional.co/landing" class="sub-menu-item" style="color: white">Puntaje Nacional</a>
+                <a href="#" class="sub-menu-item" style="color: white">Organigrama</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <a href="https://oferta.senasofiaplus.edu.co/sofia-oferta/">SENA</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">ACADEMICO</a>
+            <div class="sub-menu">
+                <a href="pei.html" class="sub-menu-item" style="color: white">PEI</a>
+                <a href="mdc.html" class="sub-menu-item" style="color: white">Manual de convivencia</a>
+                <a href="siee.html" class="sub-menu-item" style="color: white">SIEE</a>
+            </div>
+			
+        </div>
+        <div class="buscador-icono">
+    <i class="fas fa-bars" id="icono-menu"></i>
+    <i class="fas fa-search" id="icono-busqueda"></i>
+    <div class="buscador" id="buscador">
+        <input type="text" class="input-busqueda" placeholder="Buscar" id="input-busqueda">
+        <div class="resultados-busqueda" id="resultados-busqueda">
+        </div>
+		</div>
+		</div>
+        <a href="https://www.webcolegios.com/puertosantander/" class="boton-login">Acceso</a>
+    </div>
+	 <div class="menu-responsive" id="menu-responsive">
+        <div class="menu-item">
+            <a href="index.html">INICIO</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">OTROS</a>
+            <div class="sub-menu">
+                <a href="https://www2.icfesinteractivo.gov.co/prisma-web/pages/administracion/autenticacion/autenticacionIcfes.jsf?faces-redirect=true#No-back-button" class="sub-menu-item" style="color: black">ICFES Interactivo</a>
+                <a href="https://www.puntajenacional.co/landing" class="sub-menu-item" style="color: black">Puntaje Nacional</a>
+                <a href="#" class="sub-menu-item" style="color: black">Organigrama</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <a href="https://oferta.senasofiaplus.edu.co/sofia-oferta/">SENA</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">ACADEMICO</a>
+            <div class="sub-menu">
+                <a href="pei.html" class="sub-menu-item" style="color: black">PEI</a>
+                <a href="mdc.html" class="sub-menu-item" style="color: black">Manual de convivencia</a>
+                <a href="siee.html" class="sub-menu-item" style="color: black">SIEE</a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div>
+          <img src="#" style="display: block; margin: 210px auto;">
+    </div>
+     <div class="pdf-container">
+        <iframe class="pdf-viewer" src="https://www.calameo.com/read/00760097330e73c6ab256"></iframe>
+    </div>
+	<div class="footer">
+        <p>Copyright © 2024 Colegio Puerto Santander</p>
+    </div>
+    
+    <script>
+     const iconoMenu = document.getElementById('icono-menu');
+        const menuResponsive = document.getElementById('menu-responsive');
+
+        iconoMenu.addEventListener('click', () => {
+            menuResponsive.classList.toggle('menu-abrir');
+        });
+
+        const iconoBusqueda = document.getElementById('icono-busqueda');
+        const buscador = document.getElementById('buscador');
+
+        iconoBusqueda.addEventListener('click', () => {
+            buscador.classList.toggle('buscador-activo');
+            menuResponsive.classList.remove('menu-abrir');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!buscador.contains(event.target) && !iconoBusqueda.contains(event.target)) {
+                buscador.classList.remove('buscador-activo');
+            }
+            if (!menuResponsive.contains(event.target) && !iconoMenu.contains(event.target)) {
+                menuResponsive.classList.remove('menu-abrir');
+            }
+        });
+		const resultadosBusqueda = document.getElementById('resultados-busqueda');
+        const inputBusqueda = document.querySelector('.input-busqueda'); 
+
+        const enlacesResultados = [
+            { texto: 'PEI', enlace: 'pei.html' },
+            { texto: 'Manual de convivencia', enlace: 'mdc.html' },
+            
+        ];
+
+        inputBusqueda.addEventListener('input', function () {
+            const searchTerm = inputBusqueda.value.toLowerCase();
+            resultadosBusqueda.innerHTML = '';
+
+            if (searchTerm.trim() !== '') {
+                enlacesResultados.forEach((resultado) => {
+                    const contenido = resultado.texto.toLowerCase();
+                    if (contenido.includes(searchTerm)) {
+                        const enlace = document.createElement('a');
+                        enlace.href = resultado.enlace;
+                        enlace.textContent = resultado.texto;
+                        const item = document.createElement('div');
+                        item.classList.add('resultado-item');
+                        item.appendChild(enlace);
+                        resultadosBusqueda.appendChild(item);
+                    }
+                });
+
+                if (resultadosBusqueda.children.length > 0) {
+                    resultadosBusqueda.style.display = 'block';
+                } else {
+                    resultadosBusqueda.style.display = 'none';
+                }
+            } else {
+                resultadosBusqueda.style.display = 'none';
+            }
+        });
+		inputBusqueda.addEventListener('input', function () {
+        const searchTerm = inputBusqueda.value.toLowerCase();
+        resultadosBusqueda.innerHTML = '';
+
+        if (searchTerm.trim() !== '') {
+            enlacesResultados.forEach((resultado) => {
+                const contenido = resultado.texto.toLowerCase();
+                if (contenido.includes(searchTerm)) {
+                    const enlace = document.createElement('a');
+                    enlace.href = resultado.enlace;
+                    enlace.textContent = resultado.texto;
+                    const item = document.createElement('div');
+                    item.classList.add('resultado-item');
+                    item.appendChild(enlace);
+                    resultadosBusqueda.appendChild(item);
+                }
+            });
+
+            if (resultadosBusqueda.children.length > 0) {
+                resultadosBusqueda.style.display = 'block';
+            } else {
+                resultadosBusqueda.style.display = 'none';
+            }
+        } else {
+            resultadosBusqueda.style.display = 'none';
+        }
+    });
+
+    inputBusqueda.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const primerResultado = document.querySelector('.resultado-item a');
+            if (primerResultado) {
+                window.location.href = primerResultado.getAttribute('href');
+            }
+        }
+     });
+    </script>
+</body>
+</html>
